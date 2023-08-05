@@ -1,5 +1,7 @@
 #include <iostream>
 #include <fstream>
+#include <windows.h>
+#include <locale>
 
 using namespace std;
 
@@ -39,36 +41,52 @@ public:
 	string get_street() {
 		return street;
 	}
-
-
 };
 
+void sort(Adress* addresses, int size) {
+	Adress swp;
+	for (int i = 0; i < size; i++) {
+		for (int j = i + 1; j < size; j++) {
+			if (addresses[i].get_city().compare(addresses[j].get_city()) > 0)
+			{
+				swp = addresses[i];
+				addresses[i] = addresses[j];
+				addresses[j] = swp;
+			}
+		}
+	}
+}
 
 int main()
 {
-	int N, a;
+	setlocale(LC_ALL, "Russian");
+	SetConsoleOutputCP(866);
+	unsigned int N = 1, a = 1;
 	string b;
 	ifstream fin("in.txt");
-	Adress adr[30];
 	if (!fin.is_open()) {
 		cout << "Can't open file!";
 		return 0;
 	}
 	else {
 		fin >> N;
-		for (int i = 1; i <= N; i++) {
+		Adress* adr = new Adress[N];
+		for (int i = 0; i < N; i++) {
 			fin >> b; adr[i].set_city(b);
 			fin >> b; adr[i].set_street(b);
 			fin >> a; adr[i].set_num_h(a);
 			fin >> a; adr[i].set_num_ap(a);
 		}
 		fin.close();
+		
 		ofstream fout("out.txt");
 		fout << N << endl;
-		for (int i = N; i > 0; i--) {
-			fout << adr[i].get_city() << ", " << adr[i].get_street() << ", " << adr[i].get_num_ap() << ", " << adr[i].get_num_h() << endl;
+		sort(adr, N);
+		for (int i = 0; i < N; i++) {
+			fout << adr[i].get_city() << ", " << adr[i].get_street() << ", " << adr[i].get_num_h() << ", " << adr[i].get_num_ap() << endl;
 		}
 		fout.close();
+		delete[] adr;
 	}
 	return 0;
 }
