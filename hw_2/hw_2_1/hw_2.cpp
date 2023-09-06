@@ -16,7 +16,8 @@ enum class Year {
     Sep = 9,
     Oct = 10,
     Nov = 11,
-    Dec = 12
+    Dec = 12,
+    Err = 13
 };
 
 int main()
@@ -28,32 +29,32 @@ int main()
         cout << "Введите месяц: ";
         cin >> k;
         Year month = static_cast<Year>(k);
-        switch (static_cast<int>(month)) {
-        case 1: cout << "Январь"; 
+        switch (month) {
+        case Year::Jan: cout << "Январь"; 
             break;
-        case 2: cout << "Февраль"; 
+        case Year::Feb: cout << "Февраль"; 
             break;
-        case 3: cout << "Март"; 
+        case Year::Mar: cout << "Март"; 
             break;
-        case 4: cout << "Апрель"; 
+        case Year::Apr: cout << "Апрель"; 
             break;
-        case 5: cout << "Май"; 
+        case Year::May: cout << "Май"; 
             break;
-        case 6: cout << "Июнь"; 
+        case Year::Jun: cout << "Июнь"; 
             break;
-        case 7: cout << "Июль"; 
+        case Year::Jul: cout << "Июль"; 
             break;
-        case 8: cout << "Август"; 
+        case Year::Aug: cout << "Август"; 
             break;
-        case 9: cout << "Сентябрь"; 
+        case Year::Sep: cout << "Сентябрь"; 
             break;
-        case 10: cout << "Октябрь"; 
+        case Year::Oct: cout << "Октябрь"; 
             break;
-        case 11: cout << "Ноябрь"; 
+        case Year::Nov: cout << "Ноябрь"; 
             break;
-        case 12: cout << "Декабрь"; 
+        case Year::Dec: cout << "Декабрь"; 
             break;
-        case 0: cout << "До свидания!"; 
+        case Year::Err: cout << "До свидания!"; 
             return 0;
         default: cout << "Неправильный номер!"; 
             break;

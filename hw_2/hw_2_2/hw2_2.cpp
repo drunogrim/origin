@@ -8,15 +8,35 @@ struct b_acc {
     double balance;
 };
 
+void input_id(b_acc& acc){
+    cout << "input ID: ";
+    cin >> acc.id;
+}
+
+void input_name(b_acc& acc){
+    cout << "input Name: ";
+    cin >> acc.name;
+}
+void input_balance(b_acc& acc){
+    cout << "input Balance: ";
+    cin >> acc.balance;
+}
+void input_newbalance(b_acc& acc){
+    cout << "input new balance: ";
+    cin >> acc.balance;
+}
+void output_acc(b_acc acc) {
+    cout << endl <<  "Your bank acc: " << acc.name << ", " << acc.id << ", " << acc.balance;
+}
+
 int main()
 {
-    b_acc acc1 = { 000, "ivan", 000 };
-    b_acc* a_acc1 = &acc1;
-    cout << "input ID: "; cin >> acc1.id;
-    cout << "input name: "; cin >> acc1.name;
-    cout << "input balance: "; cin >> acc1.balance;
-    cout << "input new balance: "; cin >> a_acc1->balance;
-    cout << "Your bank acc: " << acc1.name <<", " << acc1.id << ", " << acc1.balance;
+    b_acc account = { 000, "ivan", 000 };
+    input_id(account);
+    input_name(account);
+    input_balance(account);
+    input_newbalance(account);
+    output_acc(account);
     cout << endl;
     return 0;
 }
