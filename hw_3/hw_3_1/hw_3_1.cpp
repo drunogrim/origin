@@ -3,9 +3,10 @@
 using namespace std;
 
 class Calculator {
-public:
+private:
     double num1;
     double num2;
+public:
     double add() {
         cout << "num1 + num2 = " << num1 + num2 << endl;
         return 0;

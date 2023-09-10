@@ -2,3 +2,4 @@ hw_*/.vs/
 hw_*/x64/
 hw_*/hw_*_*/.vs/
 hw_*/hw_*_*/x64/
+*.exe
