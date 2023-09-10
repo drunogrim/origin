@@ -39,6 +39,8 @@ public:
 	string get_street() {
 		return street;
 	}
+
+
 };
 
 
@@ -47,14 +49,14 @@ int main()
 	int N, a;
 	string b;
 	ifstream fin("in.txt");
+	Adress adr[30];
 	if (!fin.is_open()) {
 		cout << "Can't open file!";
 		return 0;
 	}
 	else {
 		fin >> N;
-		Adress* adr  = new Adress[N];
-		for (int i = 0; i < N; i++) {
+		for (int i = 1; i <= N; i++) {
 			fin >> b; adr[i].set_city(b);
 			fin >> b; adr[i].set_street(b);
 			fin >> a; adr[i].set_num_h(a);
@@ -63,11 +65,10 @@ int main()
 		fin.close();
 		ofstream fout("out.txt");
 		fout << N << endl;
-		for (int i = N-1; i >= 0; i--) {
+		for (int i = N; i > 0; i--) {
 			fout << adr[i].get_city() << ", " << adr[i].get_street() << ", " << adr[i].get_num_ap() << ", " << adr[i].get_num_h() << endl;
 		}
 		fout.close();
-		cout << "Out.txt created!";
 	}
 	return 0;
 }
