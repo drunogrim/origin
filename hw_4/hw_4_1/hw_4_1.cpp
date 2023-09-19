@@ -68,6 +68,7 @@ int main()
 		}
 		fout.close();
 		cout << "Out.txt created!";
+		delete[] adr;
 	}
 	return 0;
 }
