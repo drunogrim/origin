@@ -9,7 +9,14 @@ protected:
     int ang_a = 0, ang_b = 0, ang_c = 0, ang_d = 0;
     int num_sides = 0;
     string name = "figure";
-    string correctness = "right";
+    string correctness;
+    virtual bool correct() {
+        if (num_sides == 0) {
+            return true;
+        }
+        else return false;
+    }
+    bool corr = true;
 public:
     int get_side_A() { return side_A; }
     int get_side_B() { return side_B; }
@@ -20,15 +27,22 @@ public:
     int get_c() { return ang_c; }
     int get_d() { return ang_d; }
     int get_num_sides() { return num_sides; }
-    string get_conctrettness() { return correctness; }
+    string get_correctness() { 
+        if (corr == true) {
+            correctness = "right";
+        } else { correctness = "not right"; }
+        return correctness;
+    }
     string get_name() { return name; }
+   
+
 };
 
 class triangle : public figure {
 protected:
-    bool correct() {
-        if (((side_A + side_B > side_C) || (side_B + side_C > side_A) || (side_A + side_C > side_B)) && (ang_a + ang_b + ang_c == 180)) { return 1; }
-        else return 0;
+    bool correct() override {
+        if (((side_A + side_B > side_C) || (side_B + side_C > side_A) || (side_A + side_C > side_B)) && (ang_a + ang_b + ang_c == 180)) { return true; }
+        else return false;
     }
 public:
     triangle(int A, int B, int C, int a, int b, int c) {
@@ -45,32 +59,50 @@ public:
 };
 
 class right_triangle : public triangle {
+protected:
+    bool correct() override {
+        if (((side_A*side_A + side_B * side_B > side_C * side_C) && ang_c == 90 || (side_A * side_A + side_C * side_C > side_B * side_B) && ang_b == 90 || (side_B * side_B + side_C * side_C > side_A * side_A) && ang_a==90) && (ang_a + ang_b + ang_c == 180)) { return true; }
+        else return false;
+    }
 public:
-    right_triangle(int A, int B, int C, int a, int b, int c) : triangle(A, B, C, a, b, 90) {
+    right_triangle(int A, int B, int C, int a, int b, int c) : triangle(A, B, C, a, b, c) {
         triangle::name = "right_triangle";
+        corr = correct();
     }
 };
 
 class equilateral_triangle : public triangle {
+protected:
+    bool correct()override {
+        if ( (side_A == side_B == side_C) && (ang_a == ang_b == ang_c == 60)) { return true; }
+        else return true;
+    }
 public:
-    equilateral_triangle(int A, int B, int C, int a, int b, int c) : triangle(A, A, A, 60, 60, 60) {
+    equilateral_triangle(int A, int B, int C, int a, int b, int c) : triangle(A, B, C, a, b, c) {
         triangle::name = "equilateral_triangle";
+        corr = correct();
     };
 };
 
 class isosceles_triangle : public triangle {
+protected:
+    bool correct() override {
+        if (((side_A == side_B && ang_a == ang_c) || (side_C == side_B && ang_b==ang_c) || (side_A == side_C && ang_a == ang_c)) && (ang_a + ang_b + ang_c == 180)) { return 1; }
+        else return 0;
+    }
 public:
-    isosceles_triangle(int A, int B, int C, int a, int b, int c) : triangle(A, B, A, a, b, a) {
+    isosceles_triangle(int A, int B, int C, int a, int b, int c) : triangle(A, B, C, a, b, c) {
         triangle::name = "isosceles_triangle";
+        corr = correct();
     };
 };
 
 //--------------------------------------------
 class quadraliteral : public figure {
 protected:
-    bool correct() {
-        if ((side_A* side_A + side_B* side_B == side_C* side_C+ side_D* side_D) &&  (ang_a + ang_b + ang_c + ang_d == 360)) { return 1; }
-        else return 0;
+    bool correct() override {
+        if (((side_A * side_A + side_B * side_B) == (side_C * side_C + side_D * side_D)) && (ang_a + ang_b + ang_c + ang_d == 360)) { return true; }
+        else return false;
     }
 public:
     quadraliteral(int A, int B, int C, int D, int a, int b, int c, int d) {
@@ -84,35 +116,59 @@ public:
         ang_b = b;
         ang_c = c;
         ang_d = d;
-        if (correct() == 0) { correctness = "not right"; }
+        corr = correct();
     }
 };
 
 class square : public quadraliteral {
+protected:
+    bool correct() {
+        if ((side_A == side_B == side_C == side_D) && (ang_a == ang_b == ang_c == ang_d == 90)) { return true; }
+        else return false;
+    }
+    
 public:
-    square(int A, int B, int C, int D, int a, int b, int c, int d) : quadraliteral(A, A, A, A, 90, 90, 90, 90) {
+    square(int A, int B, int C, int D, int a, int b, int c, int d) : quadraliteral(A, B, C, D, a, b, c, d) {
         figure::name = "square";
     }
 };
 
 class rectangle : public quadraliteral {
+protected:
+    bool correct() override {
+        if ((side_A == side_C && side_A != side_B && side_B==side_D) && (ang_a == ang_b == ang_c == ang_d == 90)) { return true; }
+        else return false;
+    }
 public:
-    rectangle(int A, int B, int C, int D, int a, int b, int c, int d) : quadraliteral(A, B, A, B, 90, 90, 90, 90) {
+    rectangle(int A, int B, int C, int D, int a, int b, int c, int d) : quadraliteral(A, B, C, D, a, b, c, d) {
         figure::name = "rectangle";
+        corr = correct();
     }
 };
 
 class parallelogram : public quadraliteral {
+protected:
+    bool correct() override {
+        if ((side_A == side_C && side_B == side_D) && (ang_a == ang_c && ang_b == ang_d) &&(ang_a + ang_b + ang_c + ang_d == 360) ) { return 1; }
+        else return 0;
+    }
 public:
-    parallelogram(int A, int B, int C, int D, int a, int b, int c, int d) : quadraliteral(A, B, A, B, a, b, a, b) {
+    parallelogram(int A, int B, int C, int D, int a, int b, int c, int d) : quadraliteral(A, B, C, D, a, b, c, d) {
         figure::name = "parallelogram";
+        corr = correct();
     }
 };
 
 class rhombus : public quadraliteral {
+protected:
+    bool correct()override {
+        if ((side_A == side_C == side_B == side_D) && (ang_a == ang_c && ang_b == ang_d) && (ang_a + ang_b + ang_c + ang_d == 360)) { return 1; }
+        else return 0;
+    }
 public:
-    rhombus(int A, int B, int C, int D, int a, int b, int c, int d) : quadraliteral(A, A, A, A, a, b, a, b) {
+    rhombus(int A, int B, int C, int D, int a, int b, int c, int d) : quadraliteral(A, B, C, D, a, b, c, d) {
         figure::name = "rhombus";
+        corr = correct();
     }
 };
 
@@ -120,19 +176,19 @@ void print_info(figure& f) {
     cout << f.get_name() << ": " << endl;
     if (f.get_num_sides() == 3) {
         cout << "number of sides: " << f.get_num_sides() << endl;
-        cout << "correctness: " << f.get_conctrettness() << endl;
+        cout << "correctness: " << f.get_correctness() << endl;
         cout << "sides: " << "A=" << f.get_side_A() << " " << "B=" << f.get_side_B() << " " << "C=" << f.get_side_C() << endl;
         cout << "angles: " << "a=" << f.get_a() << " " << "b=" << f.get_b() << " " << "c=" << f.get_c() << endl << endl;
     }else
     if (f.get_num_sides() == 4) {
         cout << "number of sides: " << f.get_num_sides() << endl;
-        cout << "correctness: " << f.get_conctrettness() << endl;
+        cout << "correctness: " << f.get_correctness() << endl;
         cout << "sides: " << "A=" << f.get_side_A() << " " << "B=" << f.get_side_B() << " " << "C=" << f.get_side_C() << " " << "D=" << f.get_side_D() << endl;
         cout << "angles: " << "a=" << f.get_a() << " " << "b=" << f.get_b() << " " << "c=" << f.get_c() << " " << "d=" << f.get_d() << endl << endl;
     }
     else if(f.get_num_sides()<3){
         cout << "number of sides: " << f.get_num_sides() << endl;
-        cout << "correctness: " << f.get_conctrettness() << endl << endl;
+        cout << "correctness: " << f.get_correctness() << endl << endl;
     }
 }
 
@@ -157,6 +213,7 @@ int main()
     print_info(Quadrilateral);
 
     rectangle Rectangle(10, 20, 10, 20, 90, 90, 90, 90);
+    //rectangle Rectangle(20, 20, 20, 20, 90, 90, 90, 90);
     print_info(Rectangle);
 
     square Square(20, 20, 20, 20, 90, 90, 90, 90);
