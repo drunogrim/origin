@@ -17,13 +17,21 @@ void add() {
 
 int main()
 {
-#if MODE == 0
-    cout << "Working in training mode... " << endl;
-#elif MODE == 1
-    cout << "Working in battle mode... " << endl;
-    add();
-#else
-    cout << "Unknown mode. Exiting..." << endl;
+#ifdef MODE
+    #if MODE == 0
+        cout << "Working in training mode... " << endl;
+    #elif MODE == 1
+        cout << "Working in battle mode... " << endl;
+        add();
+    #else
+        cout << "Unknown mode. Exiting..." << endl;
+    #endif
+    #ifndef MODE
+        cout << endl << "No #define MODE" << std::endl;
+    #endif
+# endif
+#ifndef MODE
+    cout << endl << "Not #error and not #define MODE." << endl;
 #endif
     return 0;
 }
