@@ -5,24 +5,31 @@ using namespace std;
 
 class figure {
 protected:
-    int side_A = 0, side_B = 0, side_C = 0, side_D = 0;
-    int ang_a = 0, ang_b = 0, ang_c = 0, ang_d = 0;
+    //int side_A = 0, side_B = 0, side_C = 0, side_D = 0;
+    //int ang_a = 0, ang_b = 0, ang_c = 0, ang_d = 0;
     int num_sides = 0;
-    string name;
+    string name = "figure";
 public: 
-    int get_side_A(){ return side_A; }
+   /* int get_side_A(){ return side_A; }
     int get_side_B() { return side_B; }
     int get_side_C() { return side_C; }
     int get_side_D() { return side_D; }
     int get_a() { return ang_a; }
     int get_b() { return ang_b; }
     int get_c() { return ang_c; }
-    int get_d() { return ang_d; }
+    int get_d() { return ang_d; }*/
     int get_num_sides() { return num_sides; }
     string get_name() { return name; }
+    virtual void print() {
+        cout << get_name() << endl;
+        cout << "sides: " << get_num_sides() << endl << endl;
+    }
 };
 
 class triangle : public figure {
+protected:
+    int side_A = 0, side_B = 0, side_C = 0;
+    int ang_a = 0, ang_b = 0, ang_c = 0;
 public:
     triangle(int A, int B, int C, int a, int b, int c) {
         name = "triangle";
@@ -33,6 +40,17 @@ public:
         ang_a = a;
         ang_b = b;
         ang_c = c;
+    }
+    int get_side_A() { return side_A; }
+    int get_side_B() { return side_B; }
+    int get_side_C() { return side_C; }
+    int get_a() { return ang_a; }
+    int get_b() { return ang_b; }
+    int get_c() { return ang_c; }
+    void print() {
+        cout << get_name() << endl;
+        cout << "sides: " << "A=" << get_side_A() << " " << "B=" << get_side_B() << " " << "C=" << get_side_C() << endl;
+        cout << "angles: " << "a=" << get_a() << " " << "b=" << get_b() << " " << "c=" << get_c() << endl << endl;
     }
 };
 
@@ -58,6 +76,9 @@ public:
 };
 
 class quadraliteral : public figure {
+protected:
+    int side_A = 0, side_B = 0, side_C = 0, side_D = 0;
+    int ang_a = 0, ang_b = 0, ang_c = 0, ang_d = 0;
 public:
     quadraliteral(int A, int B, int C, int D, int a, int b, int c, int d) {
         name = "quadraliteral";
@@ -70,6 +91,19 @@ public:
         ang_b = b;
         ang_c = c;
         ang_d = d;
+    }
+    int get_side_A() { return side_A; }
+    int get_side_B() { return side_B; }
+    int get_side_C() { return side_C; }
+    int get_side_D() { return side_D; }
+    int get_a() { return ang_a; }
+    int get_b() { return ang_b; }
+    int get_c() { return ang_c; }
+    int get_d() { return ang_d; }
+    void print() {
+        cout << get_name() << endl;
+        cout << "sides: " << "A=" << get_side_A() << " " << "B=" << get_side_B() << " " << "C=" << get_side_C() << " " << "D=" << get_side_D() << endl;
+        cout << "angles: " << "a=" << get_a() << " " << "b=" << get_b() << " " << "c=" << get_c() << " " << "d=" << get_d() << endl << endl;
     }
 };
 
@@ -101,20 +135,27 @@ public:
     }
 };
 
+//void print_info(figure& f) {
+//    cout << f.get_name() << ": " << endl;
+//    if (f.get_num_sides() == 3) {
+//        cout << "sides: " << "A=" << f.get_side_A() << " " << "B=" << f.get_side_B() << " " << "C=" << f.get_side_C() << endl;
+//        cout << "angles: " << "a=" << f.get_a() << " " << "b=" << f.get_b() << " " << "c=" << f.get_c() << endl<< endl;
+//    }
+//    if (f.get_num_sides() == 4) {
+//        cout << "sides: " << "A=" << f.get_side_A() << " " << "B=" << f.get_side_B() << " " << "C=" << f.get_side_C() << " " << "D=" << f.get_side_D() << endl;
+//        cout << "angles: " << "a=" << f.get_a() << " " << "b=" << f.get_b() << " " << "c=" << f.get_c() << " " << "d=" << f.get_d() << endl << endl;
+//    }
+//}
+
 void print_info(figure& f) {
-    cout << f.get_name() << ": " << endl;
-    if (f.get_num_sides() == 3) {
-        cout << "sides: " << "A=" << f.get_side_A() << " " << "B=" << f.get_side_B() << " " << "C=" << f.get_side_C() << endl;
-        cout << "angles: " << "a=" << f.get_a() << " " << "b=" << f.get_b() << " " << "c=" << f.get_c() << endl<< endl;
-    }
-    if (f.get_num_sides() == 4) {
-        cout << "sides: " << "A=" << f.get_side_A() << " " << "B=" << f.get_side_B() << " " << "C=" << f.get_side_C() << " " << "D=" << f.get_side_D() << endl;
-        cout << "angles: " << "a=" << f.get_a() << " " << "b=" << f.get_b() << " " << "c=" << f.get_c() << " " << "d=" << f.get_d() << endl << endl;
-    }
+    f.print();
 }
 
 int main()
 {
+    figure Figure;
+    print_info(Figure);
+
     triangle Triangle(10, 20, 30, 50, 60, 70);
     print_info(Triangle);
 
