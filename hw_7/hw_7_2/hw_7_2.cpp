@@ -1,6 +1,6 @@
 #include <iostream>
 
-#define SUB(a, b) (a - (b))
+#define SUB(a, b) ((a) - (b))
 
 using namespace std;
 
