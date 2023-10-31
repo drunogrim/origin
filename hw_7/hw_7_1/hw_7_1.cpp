@@ -7,6 +7,7 @@
 
 using namespace std;
 
+#if  MODE == 1
 void add() {
     int a = 0, b = 0;
     cout << "input a: "; cin >> a;
@@ -14,6 +15,7 @@ void add() {
     cout << "Result: " << a + b;
     cout << endl;
 }
+#endif
 
 int main()
 {
